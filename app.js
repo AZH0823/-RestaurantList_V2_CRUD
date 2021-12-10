@@ -50,18 +50,16 @@ app.get('/search', (req, res) => {
     return
   }
 
-  resList.find({})
+  resList.find()
     .lean()
     .then((restaurants) => {
-      // 存放符合關鍵字的餐廳清單。清單並不會只有1間; 所以使用filter
-      const filteredRestaurants = restaurants.filter(restaurant => {
-        return restaurant.name.trim().toLowerCase().includes(keyWord) || restaurant.category.includes(keyWord)
+      const filiterResList = restaurants.filter((restaurant) => {
+        // 存放符合關鍵字的餐廳清單。清單並不會只有1間; 所以使用filter
+        return restaurant.name.trim().toLowerCase().includes(keyWord) || restaurant.category.trim().toLowerCase().includes(keyWord)
       })
-      // console.log(filteredRestaurants)
-      res.render('index', { resList: filteredRestaurants, searchKeyWord: keyWord })
+      res.render('index', { searchKeyWord: keyWord, resList: filiterResList })
     })
-    .catch(error => console.log(error))
-
+    .catch(error => console.error(error))
 
 
 })
