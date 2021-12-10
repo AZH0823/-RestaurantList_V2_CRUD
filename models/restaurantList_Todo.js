@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const restaurantListSchema = new Schema({
+  // id: {
+  //   type: Number, // 資料型別是字串
+  //   required: true // 這是個必填欄位
+  // },
   name: {
     type: String, // 資料型別是字串
     required: true // 這是個必填欄位
@@ -21,10 +25,14 @@ const restaurantListSchema = new Schema({
     type: String, // 資料型別是字串
     required: true // 這是個必填欄位
   },
+  phone: {
+    type: String, // 資料型別是字串
+    required: true // 這是個必填欄位
+  },
   location: {
     type: String, // 資料型別是字串
     required: true // 這是個必填欄位
   }
 
 })
-module.exports = mongoose.model('restaurantListS', restaurantListSchema)
+module.exports = mongoose.model('restaurantLists', restaurantListSchema)
