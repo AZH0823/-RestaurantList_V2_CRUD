@@ -4,7 +4,7 @@ const app = express()
 const port = 3000
 // 載入 mongoose cmd:  npm install mongoose@5.9.7
 const mongoose = require('mongoose')
-
+const bodyParser = require('body-parser')// 引用 body-parser
 
 const exhbs = require('express-handlebars')
 app.engine('handlebars', exhbs({ defaultLayouts: 'main' }))
@@ -32,6 +32,7 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+app.use(bodyParser.urlencoded({ extended: true }))
 
 //index 主畫面的取得
 app.get('/', (req, res) => {
@@ -39,6 +40,31 @@ app.get('/', (req, res) => {
     .lean()
     .then(restaurants => res.render('index', { resList: restaurants }))
     .catch(error => console.error(error))
+})
+
+
+//切到Create Page
+app.get('/restaurant/new', (req, res) => {
+  resList.find()
+    .lean()
+    .then(restaurants => {
+      const temp = [] //暫時存放餐廳種類
+      const filiterCategory = restaurants.filter((item) => {
+        if (!(temp.includes(item.category))) {
+          temp.push(item.category)
+          return temp
+        }
+      })
+      res.render('toNew', { category: filiterCategory })
+    })
+    .catch(error => console.error(error))
+})
+
+//新增一筆資料
+app.post("/restaurant", (req, res) => {
+  resList.create(req.body)
+    .then(() => res.redirect("/"))
+    .catch(error => console.log(error))
 })
 
 //查詢資料
@@ -64,13 +90,13 @@ app.get('/search', (req, res) => {
 
 })
 
-//遊覽一筆資料
+//顯示特定店家 Click Detail
 app.get('/restaurants/:id', (req, res) => {
   const resId = req.params.id
   resList.findById(resId)
     .lean()
     .then(restaurants => res.render('showDetails', { showID: restaurants }))
-  // console.log('遊覽詳細資料')
+  // console.log('顯示特定店家 Click Detail')
 
 })
 
