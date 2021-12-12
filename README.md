@@ -3,13 +3,13 @@
 
 ## 畫面呈現
 ### 首頁
-![image]()
+![image](https://raw.githubusercontent.com/AZH0823/RestaurantList_V2_CRUD/master/Cover/Capture_home01_V02.JPG)
 ### 詳細頁面
-![image]()
+![image](https://github.com/AZH0823/RestaurantList_V2_CRUD/blob/master/Cover/Capture_detail01_V02.JPG?raw=true)
 ### 創建餐廳
-![image]()
+![image](https://github.com/AZH0823/RestaurantList_V2_CRUD/blob/master/Cover/Capture_create01_V02.JPG?raw=true)
 ### 修改餐廳
-![image]()
+![image](https://github.com/AZH0823/RestaurantList_V2_CRUD/blob/master/Cover/Capture_edit01_V02.JPG?raw=true)
 ### 刪除餐廳
 - 直接進首頁或詳細頁面，按下Delete 即可刪除該筆資料
 ### 
