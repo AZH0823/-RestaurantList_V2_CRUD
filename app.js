@@ -114,6 +114,15 @@ app.get('/restaurants/:id', (req, res) => {
 
 })
 
+//刪除特定一筆資料
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  resList.findById(id)
+    .then(removeRes => removeRes.remove())
+    .then(res.redirect('/'))
+    .catch(error => console.error(error))
+})
+
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
 })
