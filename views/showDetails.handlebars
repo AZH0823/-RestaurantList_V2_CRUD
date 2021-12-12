@@ -2,9 +2,9 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-      <a href="/restaurants/{{showID._id}}/edit" class="btn btn-secondary">Edit</a>
+      <a href="/restaurant/{{showID._id}}/edit" class="btn btn-secondary">Edit</a>
 
-      <form action="/restaurants/{{ showID._id }}/delete" method="POST" style="display: inline;">
+      <form action="/restaurant/{{ showID._id }}/delete" method="POST" style="display: inline;">
         <button type="submit" class="btn btn-danger">delete</button>
       </form>
       <a href="/" class="btn  btn-link">Back</a>
@@ -15,9 +15,14 @@
           類別：
         </span>
         {{showID.category}}
+        <span class="badge badge-pill badge-danger font-weight-normal">
+          {{showID.rating}}
+          <i class="fas fa-star fa-xs"></i>
+        </span>
       </p>
 
       <p class="mb-1">
+
         <span class="text-secondary">
           <i class="fas fa-map-marker-alt pr-2"></i>
           地址：

@@ -3,7 +3,7 @@
     <h2 class=" d-inline mr-5">修改餐廳清單</h2>
 
   </div>
-  <form action="/restaurant" method="POST">
+  <form action="/restaurant/{{findOneRes._id}}" method="POST">
     <div class="form-row">
       <div class="col-md-6 mb-3">
         <label for="name">餐廳名稱</label>
@@ -12,9 +12,11 @@
       </div>
       <div class="col-md-6 mb-3">
         <label for="category">餐廳類型</label>
-        <select class="custom-select" id="category" name="category" value="" required>
-          <option selected disabled>{{findOneRes.category}}(--修改前--)</option>
-          <option disabled>----------</option>
+        <select class="custom-select" id="category" name="category" value="{{findOneRes.category}}" required>
+
+
+          <option selected>{{findOneRes.category}}</option>
+          <option disabled>-----請選擇------</option>
           <option>日本料理</option>
           <option>義式餐廳</option>
           <option>中東料理</option>

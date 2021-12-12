@@ -91,12 +91,13 @@ app.get('/search', (req, res) => {
 
 })
 
-// //修改餐廳資料
-app.get('/restaurants/:id/edit', (req, res) => {
+//修改餐廳資料
+app.get('/restaurant/:id/edit', (req, res) => {
   const id = req.params.id
   resList.findById(id)
     .lean()
     .then(findOneRes => {
+      console.log(findOneRes.category)
       res.render('edit', { findOneRes })
       // console.log(findOneRes)
     })
@@ -104,8 +105,33 @@ app.get('/restaurants/:id/edit', (req, res) => {
   // console.log('enter edit mode')
 })
 
+//取得到修改餐廳後的資料
+app.post('/restaurant/:id/', (req, res) => {
+  const id = req.params.id
+  const edit = req.body
+  console.log(edit.category)
+  resList.findById(id)
+    .then(editOneRestaurant => {
+      editOneRestaurant.name = edit.name
+      editOneRestaurant.category = edit.category
+      editOneRestaurant.image = edit.image
+      editOneRestaurant.rating = edit.rating
+      editOneRestaurant.description = edit.description
+      editOneRestaurant.phone = edit.phone
+      editOneRestaurant.location = edit.location
+
+      return editOneRestaurant.save()
+    })
+    .then(() => res.redirect(`/restaurant/${id}`))//跑去該筆資料的Detail 頁面
+    .catch(error => console.log(error))
+
+
+})
+
+
+
 //顯示特定店家 Click Detail
-app.get('/restaurants/:id', (req, res) => {
+app.get('/restaurant/:id', (req, res) => {
   const resId = req.params.id
   resList.findById(resId)
     .lean()
@@ -115,7 +141,7 @@ app.get('/restaurants/:id', (req, res) => {
 })
 
 //刪除特定一筆資料
-app.post('/restaurants/:id/delete', (req, res) => {
+app.post('/restaurant/:id/delete', (req, res) => {
   const id = req.params.id
   resList.findById(id)
     .then(removeRes => removeRes.remove())
