@@ -1,0 +1,61 @@
+<div class="container ">
+  <div class="title my-3 ">
+    <h2 class=" d-inline mr-5">修改餐廳清單</h2>
+
+  </div>
+  <form action="/restaurant" method="POST">
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="name">餐廳名稱</label>
+        <input type="text" class="form-control" id="name" placeholder="請書輸入您的餐廳名字..." name="name"
+          value="{{findOneRes.name}}" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="category">餐廳類型</label>
+        <select class="custom-select" id="category" name="category" value="" required>
+          <option selected disabled>{{findOneRes.category}}(--修改前--)</option>
+          <option disabled>----------</option>
+          <option>日本料理</option>
+          <option>義式餐廳</option>
+          <option>中東料理</option>
+          <option>美式</option>
+          <option>咖啡</option>
+          <option>酒吧</option>
+
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="location">地址</label>
+        <input type="text" class="form-control" id="location" placeholder="請輸入餐廳地址..." name="location"
+          value="{{findOneRes.location}}" required>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="phone">電話</label>
+        <input type="text" class="form-control" id="phone" name="phone" placeholder="xx xxxx xxxx"
+          value="{{findOneRes.phone}}" required>
+        </select>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="image">圖片網址</label>
+        <input type="text" class="form-control" id="image" name="image" placeholder="http://...(請貼出圖片網址)..."
+          value="{{findOneRes.image}}" required>
+      </div>
+      <div class="col-md-2 mb-3">
+        <label for="rating" class="form-label">評分</label>
+        <input type="number" class="form-control" id="rating" min="0" max="5" step="0.1" name="rating"
+          placeholder="ex:0~5" value="{{findOneRes.rating}}" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">餐廳描述</label>
+      <textarea class="form-control" id="description" rows="3" name="description" placeholder="請描述一下您的餐廳..."
+        required>{{findOneRes.description}}</textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+    <a href="/" class="btn  btn-link">Back</a>
+  </form>
+</div>

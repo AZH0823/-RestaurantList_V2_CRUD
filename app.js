@@ -67,6 +67,7 @@ app.post("/restaurant", (req, res) => {
     .catch(error => console.log(error))
 })
 
+
 //查詢資料
 app.get('/search', (req, res) => {
   // 與 index.handlebars name="keyword"
@@ -88,6 +89,19 @@ app.get('/search', (req, res) => {
     .catch(error => console.error(error))
 
 
+})
+
+// //修改餐廳資料
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  resList.findById(id)
+    .lean()
+    .then(findOneRes => {
+      res.render('edit', { findOneRes })
+      // console.log(findOneRes)
+    })
+    .catch(error => console.error(error))
+  // console.log('enter edit mode')
 })
 
 //顯示特定店家 Click Detail
