@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 //index 主畫面的取得
 app.get('/', (req, res) => {
-  resList.find()
+  return resList.find()
     .lean()
     .then(restaurants => res.render('index', { resList: restaurants }))
     .catch(error => console.error(error))
@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 
 //切到Create Page
 app.get('/restaurant/new', (req, res) => {
-  resList.find()
+  return resList.find()
     .lean()
     .then(restaurants => {
       const temp = [] //暫時存放餐廳種類
@@ -62,7 +62,7 @@ app.get('/restaurant/new', (req, res) => {
 
 //新增一筆資料
 app.post("/restaurant", (req, res) => {
-  resList.create(req.body)
+  return resList.create(req.body)
     .then(() => res.redirect("/"))
     .catch(error => console.log(error))
 })
@@ -77,7 +77,7 @@ app.get('/search', (req, res) => {
     return
   }
 
-  resList.find()
+  return resList.find()
     .lean()
     .then((restaurants) => {
       const filiterResList = restaurants.filter((restaurant) => {
@@ -94,7 +94,7 @@ app.get('/search', (req, res) => {
 //修改餐廳資料
 app.get('/restaurant/:id/edit', (req, res) => {
   const id = req.params.id
-  resList.findById(id)
+  return resList.findById(id)
     .lean()
     .then(findOneRes => {
       console.log(findOneRes.category)
@@ -110,8 +110,9 @@ app.post('/restaurant/:id/', (req, res) => {
   const id = req.params.id
   const edit = req.body
   console.log(edit.category)
-  resList.findById(id)
+  return resList.findById(id)
     .then(editOneRestaurant => {
+
       editOneRestaurant.name = edit.name
       editOneRestaurant.category = edit.category
       editOneRestaurant.image = edit.image
@@ -133,7 +134,7 @@ app.post('/restaurant/:id/', (req, res) => {
 //顯示特定店家 Click Detail
 app.get('/restaurant/:id', (req, res) => {
   const resId = req.params.id
-  resList.findById(resId)
+  return resList.findById(resId)
     .lean()
     .then(restaurants => res.render('showDetails', { showID: restaurants }))
   // console.log('顯示特定店家 Click Detail')
@@ -143,8 +144,15 @@ app.get('/restaurant/:id', (req, res) => {
 //刪除特定一筆資料
 app.post('/restaurant/:id/delete', (req, res) => {
   const id = req.params.id
-  resList.findById(id)
-    .then(removeRes => removeRes.remove())
+
+  return resList.findById(id)
+    .then(removeRes => {
+      if (typeof (removeRes) == null || typeof (removeRes) == undefined) {
+        console.log('無此筆資料')
+        return
+      }
+      removeRes.remove()
+    })
     .then(res.redirect('/'))
     .catch(error => console.error(error))
 })
